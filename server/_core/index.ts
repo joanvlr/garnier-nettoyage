@@ -31,12 +31,12 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
   
-  // Configure CORS
+  // Configure CORS - Allow all Vercel preview URLs
   app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-      ? ['https://garnier-nettoyage.vercel.app', 'https://garnier-nettoyage-production.up.railway.app']
-      : '*',
+    origin: true,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   }));
   
   // Configure body parser with larger size limit for file uploads
