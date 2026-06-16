@@ -1,5 +1,6 @@
 import express from "express";
 import { createServer } from "http";
+import cors from "cors";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerStorageProxy } from "./storageProxy";
@@ -29,6 +30,15 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  
+  // Configure CORS
+  app.use(cors({
+    origin: process.env.NODE_ENV === 'production' 
+      ? ['https://garnier-nettoyage.vercel.app', 'https://garnier-nettoyage-production.up.railway.app']
+      : '*',
+    credentials: true,
+  }));
+  
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
