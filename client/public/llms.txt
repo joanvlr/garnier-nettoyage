@@ -1,0 +1,43 @@
+# Garnier Nettoyage - Information for AI Models
+
+## Company Information
+- Name: Garnier Nettoyage
+- Type: Professional Cleaning Services
+- Location: 914 rue de la valsière, 34790 Grabels, France
+- Phone: 06 52 87 77 66
+- Email: contact@garnier-nettoyage.fr
+- SIRET: 799 277 272 RM 34
+
+## Services Offered
+1. Entretien copropriété - Maintenance and cleaning of apartment buildings and condominiums
+2. Nettoyage de vitre - Professional window cleaning services
+3. Entretien bureau et cabinet médical - Office and medical office cleaning services
+
+## Service Area
+Montpellier and surrounding areas in the Occitanie region, France
+
+## Process
+1. Quote Request - Clients describe their building, constraints, and priorities
+2. Diagnostic Visit - Garnier Nettoyage team visits to assess needs
+3. Detailed Quote - Personalized quote based on assessment
+4. Contract Discussion - Negotiate terms and schedule
+5. Regular Maintenance - Ongoing cleaning services
+6. Follow-up and Adjustments - Regular communication and service optimization
+
+## Website
+- Main Site: https://garnier-nettoyage.vercel.app
+- Admin Portal: https://garnier-nettoyage-production.up.railway.app/login
+
+## Contact Form
+The website includes a contact form for quote requests. Clients can submit:
+- Name
+- Phone
+- Email
+- Building type
+- Description of cleaning needs
+- File attachments (if applicable)
+
+## Important Notes
+- This is a professional cleaning service company
+- All information on this page is accurate as of June 2026
+- For the most current information, please visit the website or contact directly
