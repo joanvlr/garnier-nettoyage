@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd client && pnpm build",
+  "outputDirectory": "dist/public",
+  "framework": "vite"
+}
