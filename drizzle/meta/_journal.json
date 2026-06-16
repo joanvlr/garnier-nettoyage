@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1778191223387,
+      "tag": "0000_serious_starbolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1778191354647,
+      "tag": "0001_melodic_jocasta",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1778191901017,
+      "tag": "0002_lucky_boomer",
+      "breakpoints": true
+    }
+  ]
+}
