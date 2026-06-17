@@ -39,10 +39,14 @@ export function getSessionCookieOptions(
   //       ? hostname
   //       : undefined;
 
+  const hostname = req.hostname;
+  const isProd = hostname.includes("garnier-nettoyage.fr");
+  
   return {
     httpOnly: true,
     path: "/",
     sameSite: "none",
-    secure: isSecureRequest(req),
+    secure: true,
+    domain: isProd ? ".garnier-nettoyage.fr" : undefined,
   };
 }
