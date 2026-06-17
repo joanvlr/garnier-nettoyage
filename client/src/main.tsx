@@ -37,15 +37,25 @@ queryClient.getMutationCache().subscribe(event => {
   }
 });
 
+const getBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+  return ''; // fallback to relative path if no URL provided
+};
+
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: `${import.meta.env.VITE_API_URL || '/api'}/trpc`,
+      url: `${getBaseUrl()}/api/trpc`,
       transformer: superjson,
       fetch(input, init) {
         const urlString = typeof input === 'string' ? input : input instanceof URL ? input.toString() : input.url;
-        const url = new URL(urlString, import.meta.env.VITE_API_URL || window.location.origin);
-        return globalThis.fetch(url.toString(), {
+        // If urlString is already absolute (starts with http), use it as is.
+        // Otherwise, prepend the base URL.
+        const finalUrl = urlString.startsWith('http') 
+          ? urlString 
+          : `${getBaseUrl()}${urlString.startsWith('/') ? '' : '/'}${urlString}`;
+          
+        return globalThis.fetch(finalUrl, {
           ...(init ?? {}),
           credentials: "include",
         });
