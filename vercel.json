@@ -1,6 +1,6 @@
 {
-  "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "cd client && pnpm build",
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "cd client && npm run build",
   "outputDirectory": "dist/public",
   "framework": "vite"
 }
