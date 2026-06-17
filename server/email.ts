@@ -13,7 +13,7 @@ export async function sendQuoteNotificationEmail(quoteData: {
   
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Garnier Nettoyage <onboarding@resend.dev>',
+      from: 'Garnier Nettoyage <contact@garnier-nettoyage.fr>',
       to: [adminEmail],
       subject: `Nouveau Devis : ${quoteData.name}`,
       html: `
@@ -50,7 +50,7 @@ export async function sendClientMessageEmail(clientData: {
 }) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Garnier Nettoyage <onboarding@resend.dev>',
+      from: 'Garnier Nettoyage <contact@garnier-nettoyage.fr>',
       to: [clientData.email],
       subject: `Message de Garnier Nettoyage`,
       html: `
