@@ -31,12 +31,23 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
   
-  // Configure CORS - Allow all Vercel preview URLs
+  // Configure CORS - Allow main domain and all Vercel preview URLs
   app.use(cors({
-    origin: true,
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "https://garnier-nettoyage.fr",
+        "https://www.garnier-nettoyage.fr",
+        "https://garnier-nettoyage.vercel.app"
+      ];
+      if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
   }));
   
   // Configure body parser with larger size limit for file uploads

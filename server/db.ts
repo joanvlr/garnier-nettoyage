@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, quoteRequests, InsertQuoteRequest, messages, InsertMessage } from "../drizzle/schema";
+import { InsertUser, users, quoteRequests, InsertQuoteRequest, messages, InsertMessage, pushTokens, InsertPushToken } from "../drizzle/schema";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -155,4 +155,39 @@ export async function getMessagesForQuote(quoteId: number) {
   }
 
   return db.select().from(messages).where(eq(messages.quoteId, quoteId)).orderBy(messages.createdAt);
+}
+
+/**
+ * Save a push token
+ */
+export async function savePushToken(data: InsertPushToken) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  // Check if token already exists for this user
+  const existing = await db
+    .select()
+    .from(pushTokens)
+    .where(eq(pushTokens.token, data.token))
+    .limit(1);
+
+  if (existing.length > 0) {
+    return existing[0];
+  }
+
+  return db.insert(pushTokens).values(data);
+}
+
+/**
+ * Get all push tokens for admins
+ */
+export async function getAllAdminPushTokens() {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  return db.select().from(pushTokens);
 }
