@@ -1,5 +1,6 @@
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { createQuoteRequest, getQuoteRequests, updateQuoteRequestStatus, deleteQuoteRequest, sendMessage, getMessagesForQuote, getUserByEmail, getUserById } from "./db";
+import { sendQuoteNotificationEmail } from "./email";
 import { storagePut } from "./storage";
 import { z } from "zod";
 import bcryptjs from "bcryptjs";
@@ -117,7 +118,7 @@ export const appRouter = router({
           }
         }
 
-        return createQuoteRequest({
+        const result = await createQuoteRequest({
           name: input.name,
           phone: input.phone,
           email: input.email,
@@ -125,6 +126,17 @@ export const appRouter = router({
           message: input.message,
           files: uploadedFiles,
         });
+
+        // Envoyer une notification par email de manière asynchrone
+        sendQuoteNotificationEmail({
+          name: input.name,
+          phone: input.phone,
+          email: input.email,
+          building: input.building,
+          message: input.message,
+        }).catch(err => console.error("Échec de l'envoi de l'email de notification:", err));
+
+        return result;
       }),
 
     getAll: protectedProcedure.query(async ({ ctx }) => {
