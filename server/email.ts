@@ -42,3 +42,36 @@ export async function sendQuoteNotificationEmail(quoteData: {
     return { success: false, error };
   }
 }
+
+export async function sendClientMessageEmail(clientData: {
+  email: string;
+  name: string;
+  message: string;
+}) {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'Garnier Nettoyage <onboarding@resend.dev>',
+      to: [clientData.email],
+      subject: `Message de Garnier Nettoyage`,
+      html: `
+        <h1>Bonjour ${clientData.name},</h1>
+        <p>Vous avez reçu un nouveau message de la part de Garnier Nettoyage concernant votre demande de devis.</p>
+        <hr />
+        <p><strong>Message :</strong></p>
+        <p>${clientData.message.replace(/\n/g, '<br>')}</p>
+        <hr />
+        <p>Cordialement,<br />L'équipe Garnier Nettoyage</p>
+      `,
+    });
+
+    if (error) {
+      console.error('Erreur lors de l\'envoi de l\'email au client:', error);
+      return { success: false, error };
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Exception lors de l\'envoi de l\'email au client:', error);
+    return { success: false, error };
+  }
+}

@@ -1,6 +1,6 @@
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
 import { createQuoteRequest, getQuoteRequests, updateQuoteRequestStatus, deleteQuoteRequest, sendMessage, getMessagesForQuote, getUserByEmail, getUserById } from "./db";
-import { sendQuoteNotificationEmail } from "./email";
+import { sendQuoteNotificationEmail, sendClientMessageEmail } from "./email";
 import { storagePut } from "./storage";
 import { z } from "zod";
 import bcryptjs from "bcryptjs";
@@ -191,10 +191,25 @@ export const appRouter = router({
         if (ctx.user?.role !== "admin") {
           throw new Error("Unauthorized: admin access required");
         }
-        return sendMessage({
+
+        // 1. Sauvegarder le message en base de données
+        const result = await sendMessage({
           quoteId: input.quoteId,
           content: input.content,
         });
+
+        // 2. Récupérer les infos du client pour envoyer l'email
+        const quote = await getQuoteRequestById(input.quoteId);
+        if (quote && quote.email) {
+          // 3. Envoyer l'email via Resend
+          await sendClientMessageEmail({
+            email: quote.email,
+            name: quote.name,
+            message: input.content,
+          }).catch(err => console.error("Erreur lors de l'envoi de l'email client:", err));
+        }
+
+        return result;
       }),
 
     getForQuote: protectedProcedure
