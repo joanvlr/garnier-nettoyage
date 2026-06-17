@@ -77,7 +77,7 @@ git push -u origin main
 
 ### 2.3 Configurer le déploiement
 1. **Framework Preset** : Sélectionnez **"Vite"**
-2. **Build Command** : `pnpm build`
+2. **Build Command** : `npm run build`
 3. **Output Directory** : `dist`
 4. **Environment Variables** : Laissez vide pour l'instant
 
