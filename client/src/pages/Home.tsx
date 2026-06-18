@@ -24,12 +24,9 @@ import { trpc } from "@/lib/trpc";
   mouvement net et rassurant. Chaque choix doit renforcer cette philosophie.
 */
 
-const heroImage =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663638271676/Dq4GXynsKbBSJeVuAU2k6n/garnier-hero-clean-building-R64hpuGisLysrXpuSUFztc.webp";
-const servicesImage =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663638271676/Dq4GXynsKbBSJeVuAU2k6n/garnier-services-collage-PSexytUGEWmMfSgkxHZE6i.webp";
-const contactImage =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663638271676/Dq4GXynsKbBSJeVuAU2k6n/garnier-contact-background-XvPqLDqMsLkihzoddAuh4t.webp";
+const heroImage = "/assets/hero.webp";
+const servicesImage = "/assets/services.webp";
+const contactImage = "/assets/contact.webp";
 
 const services = [
   {
