@@ -241,13 +241,13 @@ export default function Home() {
                     <h3 className="mt-5 font-display text-2xl font-black text-[#062d3b]">{service.title}</h3>
                     <p className="mt-3 text-sm leading-6 text-slate-600">{service.shortText}</p>
                     
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative z-10">
                       {isExpanded && (
-                        <div className="mt-4 border-t border-cyan-200/50 pt-4 space-y-4">
-                          <p className="text-sm leading-6 text-slate-600">{service.fullText}</p>
+                        <div className="mt-4 border-t border-cyan-200/50 pt-4 space-y-6">
+                          <p className="text-sm leading-6 text-slate-700 font-medium">{service.fullText}</p>
                           {service.image && (
-                            <div className="overflow-hidden rounded-lg border border-cyan-100">
-                              <img src={service.image} alt={service.title} className="w-full h-auto object-cover" />
+                            <div className="overflow-hidden rounded-xl border-2 border-cyan-50 shadow-inner bg-white">
+                              <img src={service.image} alt={service.title} className="w-full h-auto object-cover max-h-[400px]" />
                             </div>
                           )}
                         </div>
@@ -255,10 +255,15 @@ export default function Home() {
                       
                       <button
                         onClick={() => setExpandedService(isExpanded ? null : service.title)}
-                        className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-700 hover:text-cyan-800 transition-colors w-fit"
+                        className={`mt-6 inline-flex items-center gap-2 text-sm font-extrabold transition-all duration-300 w-fit px-4 py-2 rounded-full shadow-sm ${
+                          isExpanded 
+                          ? "bg-cyan-50 text-cyan-800 border-2 border-cyan-200 hover:bg-cyan-100 translate-y-1" 
+                          : "text-cyan-700 hover:text-cyan-900 hover:gap-3"
+                        }`}
+                        style={{ position: 'relative', zIndex: 50 }}
                       >
-                        {isExpanded ? "Moins de détails" : "Plus d'infos"}
-                        <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                        {isExpanded ? "Réduire les détails" : "En savoir plus"}
+                        <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
                       </button>
                     </div>
                   </article>
