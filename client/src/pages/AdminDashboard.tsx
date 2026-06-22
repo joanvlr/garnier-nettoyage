@@ -265,27 +265,40 @@ export default function AdminDashboard() {
                       )}
                     </TableCell>
                     <TableCell className="px-6 py-4">
-                      <div className="max-w-xs text-sm text-slate-700">
+                      <div className="w-[250px] text-sm text-slate-700">
                         <Dialog>
                           <DialogTrigger asChild>
-                            <button className="text-left hover:text-cyan-700 transition-colors">
-                              <p className="line-clamp-3 cursor-pointer">{request.message}</p>
-                              {request.message && request.message.length > 60 && (
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-600">Voir tout</span>
+                            <button className="w-full text-left hover:text-cyan-700 transition-colors group">
+                              <p className="line-clamp-3 overflow-hidden text-ellipsis break-words cursor-pointer leading-snug">
+                                {request.message || <span className="text-slate-400 italic">Aucun message</span>}
+                              </p>
+                              {request.message && request.message.length > 50 && (
+                                <span className="mt-1 inline-block text-[10px] font-black uppercase tracking-tighter text-cyan-600 group-hover:underline">
+                                  + Voir les détails
+                                </span>
                               )}
                             </button>
                           </DialogTrigger>
-                          <DialogContent className="max-w-2xl">
-                            <DialogHeader>
-                              <DialogTitle className="flex items-center gap-2">
-                                <MessageSquare className="h-5 w-5 text-cyan-600" />
-                                Description de la demande - {request.name}
-                              </DialogTitle>
-                            </DialogHeader>
-                            <div className="mt-4 max-h-[60vh] overflow-y-auto rounded-lg bg-slate-50 p-6 border border-slate-100">
-                              <p className="whitespace-pre-wrap text-base leading-relaxed text-slate-800">
-                                {request.message || "Aucune description fournie."}
-                              </p>
+                          <DialogContent className="max-w-2xl p-0 overflow-hidden border-none shadow-2xl">
+                            <div className="bg-cyan-700 px-6 py-4 text-white">
+                              <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2 text-white">
+                                  <MessageSquare className="h-5 w-5" />
+                                  Message de {request.name}
+                                </DialogTitle>
+                              </DialogHeader>
+                            </div>
+                            <div className="p-8 max-h-[70vh] overflow-y-auto bg-white">
+                              <div className="prose prose-slate max-w-none">
+                                <p className="whitespace-pre-wrap text-base leading-relaxed text-slate-700 break-words">
+                                  {request.message}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="bg-slate-50 px-6 py-3 flex justify-end border-t border-slate-100">
+                              <DialogTrigger asChild>
+                                <Button variant="ghost" size="sm">Fermer</Button>
+                              </DialogTrigger>
                             </div>
                           </DialogContent>
                         </Dialog>
