@@ -16,6 +16,27 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { motion } from "framer-motion";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 60 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+};
+
+const scaleIn = {
+  initial: { opacity: 0, scale: 0.85 },
+  whileInView: { opacity: 1, scale: 1 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+};
+
+const staggerContainer = {
+  initial: {},
+  whileInView: { transition: { staggerChildren: 0.15 } },
+  viewport: { once: true }
+};
 
 /*
   Garnier Nettoyage — Modernisme méditerranéen hygiéniste.
@@ -167,7 +188,12 @@ export default function Home() {
         </div>
 
         <div className="container relative grid min-h-[78vh] items-center gap-12 py-16 lg:grid-cols-[1.02fr_0.98fr]">
-          <div className="max-w-3xl animate-rise">
+          <motion.div 
+            className="max-w-3xl"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <div className="mb-7 inline-flex items-center gap-2 border border-cyan-200/80 bg-white/74 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-800 shadow-sm backdrop-blur [clip-path:polygon(4%_0,100%_0,96%_100%,0_100%)]">
               <MapPin className="h-4 w-4" /> Montpellier & alentours
             </div>
@@ -187,15 +213,25 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-2">
+            <motion.div 
+              className="mt-10 grid gap-3 sm:grid-cols-2"
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true }}
+            >
               {trustPoints.map((point) => (
-                <div key={point} className="flex items-center gap-3 rounded-none border border-white/80 bg-white/72 px-4 py-3 text-sm font-bold text-slate-700 shadow-sm backdrop-blur">
+                <motion.div 
+                  key={point} 
+                  variants={fadeInUp}
+                  className="flex items-center gap-3 rounded-none border border-white/80 bg-white/72 px-4 py-3 text-sm font-bold text-slate-700 shadow-sm backdrop-blur"
+                >
                   <CheckCircle2 className="h-5 w-5 shrink-0 text-cyan-700" />
                   {point}
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           <aside className="relative hidden min-h-[560px] lg:block" aria-label="Résumé du service">
             <div className="absolute right-4 top-12 w-72 border border-white/70 bg-white/86 p-6 shadow-2xl shadow-cyan-950/12 backdrop-blur-xl [clip-path:polygon(8%_0,100%_0,92%_100%,0_100%)]">
@@ -231,12 +267,23 @@ export default function Home() {
             <h2 className="section-title">Un service pensé pour les bâtiments qui doivent toujours faire bonne impression.</h2>
             <p className="section-lead">Garnier Nettoyage ne vend pas seulement des heures de ménage. L'entreprise vend un résultat visible : des espaces communs propres, une sensation d'ordre et une image sérieuse pour les occupants comme pour les visiteurs.</p>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            <motion.div 
+              className="mt-10 grid gap-5 sm:grid-cols-2"
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-100px" }}
+            >
               {services.map((service) => {
                 const Icon = service.icon;
                 const isExpanded = expandedService === service.title;
                 return (
-                  <article key={service.title} className="service-card group">
+                  <motion.article 
+                    key={service.title} 
+                    variants={scaleIn}
+                    whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                    className="service-card group"
+                  >
                     <Icon className="h-8 w-8 text-cyan-700 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
                     <h3 className="mt-5 font-display text-2xl font-black text-[#062d3b]">{service.title}</h3>
                     <p className="mt-3 text-sm leading-6 text-slate-600">{service.shortText}</p>
@@ -266,10 +313,10 @@ export default function Home() {
                         <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
                       </button>
                     </div>
-                  </article>
+                  </motion.article>
                 );
               })}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -278,33 +325,51 @@ export default function Home() {
         <div className="absolute inset-0 opacity-30 [background:radial-gradient(circle_at_16%_18%,#22d3ee_0,transparent_30%),linear-gradient(135deg,transparent_0_42%,rgba(255,255,255,.12)_42%_43%,transparent_43%)]" />
         <div className="container relative">
           <div className="max-w-3xl">
-            <p className="eyebrow text-cyan-200">Méthode Garnier</p>
-            <h2 className="section-title text-white">Clair, régulier, contrôlable : le nettoyage ne doit pas être une inquiétude.</h2>
+            <motion.p variants={fadeInUp} initial="initial" whileInView="whileInView" className="eyebrow text-cyan-200">Méthode Garnier</motion.p>
+            <motion.h2 variants={fadeInUp} initial="initial" whileInView="whileInView" className="section-title text-white">Clair, régulier, contrôlable : le nettoyage ne doit pas être une inquiétude.</motion.h2>
           </div>
 
-          <div className="mt-12 grid gap-5 md:grid-cols-4">
+          <motion.div 
+            className="mt-12 grid gap-5 md:grid-cols-4"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
             {processSteps.map(([number, title, text]) => (
-              <article key={number} className="process-card">
+              <motion.article key={number} variants={fadeInUp} className="process-card">
                 <span className="font-display text-5xl font-black text-cyan-300/70">{number}</span>
                 <h3 className="mt-8 text-xl font-black">{title}</h3>
                 <p className="mt-4 text-sm leading-6 text-cyan-50/76">{text}</p>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section id="avis" className="py-24 sm:py-32">
         <div className="container">
-          <div className="mb-14">
+          <motion.div 
+            className="mb-14"
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
             <p className="eyebrow">Témoignages clients</p>
             <h2 className="section-title">Pourquoi les clients nous font confiance.</h2>
             <p className="section-lead">Des entreprises, cabinets médicaux et copropriétés nous confient leur nettoyage. Voici ce qu'ils en pensent.</p>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <motion.div 
+            className="grid gap-6 md:grid-cols-3"
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
             {testimonials.map((testimonial) => (
-              <div key={testimonial.name} className="rounded-lg border border-cyan-200/50 bg-white p-6 shadow-sm">
+              <motion.div key={testimonial.name} variants={scaleIn} className="rounded-lg border border-cyan-200/50 bg-white p-6 shadow-sm">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star key={i} className="h-5 w-5 fill-cyan-500 text-cyan-500" />
@@ -315,9 +380,9 @@ export default function Home() {
                   <p className="font-bold text-[#062d3b]">{testimonial.name}</p>
                   <p className="text-xs text-slate-600">{testimonial.role}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
