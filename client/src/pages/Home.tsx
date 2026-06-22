@@ -218,10 +218,10 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -left-8 -top-8 h-28 w-28 rounded-full bg-cyan-200/70 blur-3xl" />
             <img src={servicesImage} alt="Collage des services de nettoyage de bâtiments" className="relative z-10 w-full shadow-2xl shadow-cyan-950/14 [clip-path:polygon(0_0,100%_7%,94%_100%,0_92%)]" />
-            <div className="absolute -bottom-12 -right-4 z-20 w-48 overflow-hidden rounded-xl border-4 border-white shadow-2xl">
+            <div className="absolute -bottom-12 -right-4 z-20 w-40 overflow-hidden rounded-xl border-4 border-white shadow-2xl transition-transform hover:scale-105 sm:w-48">
               <img src="/assets/aspirateur.webp" alt="Matériel professionnel" className="w-full h-auto" />
-              <div className="bg-white p-3 text-center">
-                <p className="text-[10px] font-black uppercase tracking-widest text-cyan-700">Matériel Pro</p>
+              <div className="bg-white p-2 text-center sm:p-3">
+                <p className="text-[8px] font-black uppercase tracking-widest text-cyan-700 sm:text-[10px]">Matériel Pro</p>
               </div>
             </div>
           </div>
@@ -241,24 +241,26 @@ export default function Home() {
                     <h3 className="mt-5 font-display text-2xl font-black text-[#062d3b]">{service.title}</h3>
                     <p className="mt-3 text-sm leading-6 text-slate-600">{service.shortText}</p>
                     
-                    {isExpanded && (
-                      <div className="mt-4 border-t border-cyan-200/50 pt-4 space-y-4">
-                        <p className="text-sm leading-6 text-slate-600">{service.fullText}</p>
-                        {service.image && (
-                          <div className="overflow-hidden rounded-lg border border-cyan-100">
-                            <img src={service.image} alt={service.title} className="w-full h-auto object-cover" />
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    
-                    <button
-                      onClick={() => setExpandedService(isExpanded ? null : service.title)}
-                      className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-700 hover:text-cyan-800 transition-colors"
-                    >
-                      {isExpanded ? "Moins de détails" : "Plus d'infos"}
-                      <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
-                    </button>
+                    <div className="flex flex-col">
+                      {isExpanded && (
+                        <div className="mt-4 border-t border-cyan-200/50 pt-4 space-y-4">
+                          <p className="text-sm leading-6 text-slate-600">{service.fullText}</p>
+                          {service.image && (
+                            <div className="overflow-hidden rounded-lg border border-cyan-100">
+                              <img src={service.image} alt={service.title} className="w-full h-auto object-cover" />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      <button
+                        onClick={() => setExpandedService(isExpanded ? null : service.title)}
+                        className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-700 hover:text-cyan-800 transition-colors w-fit"
+                      >
+                        {isExpanded ? "Moins de détails" : "Plus d'infos"}
+                        <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                      </button>
+                    </div>
                   </article>
                 );
               })}
