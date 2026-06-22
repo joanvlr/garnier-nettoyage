@@ -274,8 +274,8 @@
     background: rgba(255, 255, 255, 0.86);
     padding: 1.65rem;
     box-shadow: 0 24px 70px rgba(6, 45, 59, 0.07);
-    clip-path: polygon(0 0, 100% 0, 94% 100%, 0 92%);
     transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+    border-radius: 0.75rem;
   }
 
   .service-card:hover {

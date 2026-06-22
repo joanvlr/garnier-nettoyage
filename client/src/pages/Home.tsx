@@ -246,8 +246,8 @@ export default function Home() {
                         <div className="mt-4 border-t border-cyan-200/50 pt-4 space-y-6">
                           <p className="text-sm leading-6 text-slate-700 font-medium">{service.fullText}</p>
                           {service.image && (
-                            <div className="overflow-hidden rounded-xl border-2 border-cyan-50 shadow-inner bg-white">
-                              <img src={service.image} alt={service.title} className="w-full h-auto object-cover max-h-[400px]" />
+                            <div className="overflow-hidden rounded-xl border-2 border-cyan-50 shadow-md bg-white">
+                              <img src={service.image} alt={service.title} className="w-full h-auto object-cover" />
                             </div>
                           )}
                         </div>
