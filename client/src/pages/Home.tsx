@@ -34,18 +34,21 @@ const services = [
     title: "Entretien copropriété",
     shortText: "Entretien complet et régulier des parties communes pour une image irréprochable.",
     fullText: "Garnier Nettoyage prend en charge l'entretien méticuleux des halls, escaliers, ascenseurs, vitrages et locaux techniques. Nous assurons une propreté constante et une hygiène rigoureuse, essentielle pour le confort des résidents et la valorisation de votre patrimoine immobilier.",
+    image: "/assets/avant_apres_copro.webp",
   },
   {
     icon: Sparkles,
     title: "Nettoyage de vitre",
     shortText: "Des vitrages impeccables, pour une luminosité et une clarté optimales.",
     fullText: "Nos experts en nettoyage de vitres garantissent une transparence parfaite pour tous types de surfaces vitrées, intérieures comme extérieures. Nous utilisons des techniques professionnelles et des équipements adaptés pour un résultat sans trace, améliorant l'esthétique et la luminosité de vos locaux.",
+    image: "/assets/vitre.webp",
   },
   {
     icon: SprayCan,
-    title: "Entretien bureau et cabinet médical",
-    shortText: "Hygiène et propreté irréprochables pour vos bureaux et cabinets médicaux.",
-    fullText: "Nous offrons des solutions de nettoyage sur mesure pour les environnements professionnels et médicaux. Nos protocoles respectent les normes d'hygiène les plus strictes, garantissant des espaces sains, accueillants et propices à la concentration et au bien-être de vos équipes et de vos patients.",
+    title: "Bureaux, Cabinets & Pharmacies",
+    shortText: "Hygiène et propreté irréprochables pour vos environnements professionnels et de santé.",
+    fullText: "Nous offrons des solutions de nettoyage sur mesure pour les bureaux, cabinets médicaux et pharmacies. Nos protocoles respectent les normes d'hygiène les plus strictes, garantissant des espaces sains, accueillants et propices à la concentration de vos équipes et à la sécurité de vos patients et clients.",
+    image: "/assets/pharmacie.webp",
   },
 ];
 
@@ -215,9 +218,11 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -left-8 -top-8 h-28 w-28 rounded-full bg-cyan-200/70 blur-3xl" />
             <img src={servicesImage} alt="Collage des services de nettoyage de bâtiments" className="relative z-10 w-full shadow-2xl shadow-cyan-950/14 [clip-path:polygon(0_0,100%_7%,94%_100%,0_92%)]" />
-            <div className="absolute -bottom-8 right-2 z-20 bg-white p-5 shadow-xl shadow-cyan-950/10 [clip-path:polygon(7%_0,100%_0,93%_100%,0_100%)]">
-              <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-700">Spécialiste</p>
-              <p className="font-display text-2xl font-black text-[#062d3b]">Bâtiments propres</p>
+            <div className="absolute -bottom-12 -right-4 z-20 w-48 overflow-hidden rounded-xl border-4 border-white shadow-2xl">
+              <img src="/assets/aspirateur.webp" alt="Matériel professionnel" className="w-full h-auto" />
+              <div className="bg-white p-3 text-center">
+                <p className="text-[10px] font-black uppercase tracking-widest text-cyan-700">Matériel Pro</p>
+              </div>
             </div>
           </div>
 
@@ -237,8 +242,13 @@ export default function Home() {
                     <p className="mt-3 text-sm leading-6 text-slate-600">{service.shortText}</p>
                     
                     {isExpanded && (
-                      <div className="mt-4 border-t border-cyan-200/50 pt-4">
+                      <div className="mt-4 border-t border-cyan-200/50 pt-4 space-y-4">
                         <p className="text-sm leading-6 text-slate-600">{service.fullText}</p>
+                        {service.image && (
+                          <div className="overflow-hidden rounded-lg border border-cyan-100">
+                            <img src={service.image} alt={service.title} className="w-full h-auto object-cover" />
+                          </div>
+                        )}
                       </div>
                     )}
                     
