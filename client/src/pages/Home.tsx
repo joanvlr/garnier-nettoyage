@@ -32,54 +32,54 @@ const services = [
   {
     icon: Building2,
     title: "Entretien copropriété",
-    shortText: "Halls, escaliers, ascenseurs, vitrages et parties communes entretenus avec régularité.",
-    fullText: "Garnier Nettoyage assure le nettoyage complet des parties communes de votre copropriété. Halls d'entrée accueillants, escaliers impeccables, ascenseurs brillants, vitrages nets et locaux poubelles hygiéniques. Un entretien régulier et méthodique qui renforce l'image de votre immeuble.",
+    shortText: "Entretien complet et régulier des parties communes pour une image irréprochable.",
+    fullText: "Garnier Nettoyage prend en charge l'entretien méticuleux des halls, escaliers, ascenseurs, vitrages et locaux techniques. Nous assurons une propreté constante et une hygiène rigoureuse, essentielle pour le confort des résidents et la valorisation de votre patrimoine immobilier.",
   },
   {
     icon: Sparkles,
     title: "Nettoyage de vitre",
-    shortText: "Vitres intérieures et extérieures nettoyées en profondeur pour une transparence maximale.",
-    fullText: "Des vitres propres et transparentes améliorent immédiatement l'apparence d'un bâtiment. Nos équipes nettoient les vitrages intérieurs et extérieurs, les cadres et les appuis de fenêtre avec soin et précision, garantissant une transparence cristalline.",
+    shortText: "Des vitrages impeccables, pour une luminosité et une clarté optimales.",
+    fullText: "Nos experts en nettoyage de vitres garantissent une transparence parfaite pour tous types de surfaces vitrées, intérieures comme extérieures. Nous utilisons des techniques professionnelles et des équipements adaptés pour un résultat sans trace, améliorant l'esthétique et la luminosité de vos locaux.",
   },
   {
     icon: SprayCan,
     title: "Entretien bureau et cabinet médical",
-    shortText: "Espaces de travail nets, accueillants et conformes aux normes d'hygiène professionnelle.",
-    fullText: "Pour les bureaux et cabinets médicaux, l'hygiène est primordiale. Garnier Nettoyage propose un entretien régulier adapté aux normes professionnelles, avec une attention particulière aux zones sensibles et au respect des protocoles de propreté.",
+    shortText: "Hygiène et propreté irréprochables pour vos bureaux et cabinets médicaux.",
+    fullText: "Nous offrons des solutions de nettoyage sur mesure pour les environnements professionnels et médicaux. Nos protocoles respectent les normes d'hygiène les plus strictes, garantissant des espaces sains, accueillants et propices à la concentration et au bien-être de vos équipes et de vos patients.",
   },
 ];
 
 const trustPoints = [
-  "Intervention à Montpellier et alentours",
-  "Devis clair et réponse rapide",
-  "Nettoyage de bâtiments, halls et bureaux",
-  "Service soigné pour professionnels et copropriétés",
+  "Expertise locale à Montpellier et sa métropole",
+  "Devis sur mesure et réactivité optimale",
+  "Propreté certifiée pour tous environnements professionnels",
+  "Partenaire fiable pour copropriétés, bureaux et cabinets médicaux",
 ];
 
 const processSteps = [
-  ["01", "Devis et diagnostic", "Vous décrivez votre besoin. Garnier Nettoyage propose un devis clair et une visite pour diagnostiquer les surfaces et les contraintes."],
-  ["02", "Visite et contrat", "Une rencontre sur place pour discuter en détail, valider le plan d'entretien et signer un contrat adapté à votre copropriété ou entreprise."],
-  ["03", "Entretien régulier", "Garnier Nettoyage intervient selon le calendrier convenu, avec méthode, discrétion et régularité."],
-  ["04", "Suivi et ajustements", "Un interlocuteur clair reste disponible pour ajuster le service selon vos besoins ou vos retours."],
+  ["01", "Analyse et proposition", "Nous évaluons précisément vos besoins et les spécificités de vos locaux pour élaborer une offre de service sur mesure et un devis transparent."],
+  ["02", "Engagement contractuel", "Après validation de notre proposition, nous formalisons notre partenariat par un contrat clair, adapté à vos exigences et garantissant la qualité de nos prestations."],
+  ["03", "Exécution rigoureuse", "Nos équipes interviennent selon un planning défini, avec professionnalisme et discrétion, en respectant scrupuleusement le cahier des charges établi."],
+  ["04", "Contrôle et ajustement", "Un suivi régulier est mis en place avec un interlocuteur dédié pour assurer votre entière satisfaction et adapter nos services si nécessaire."],
 ];
 
 const testimonials = [
   {
-    name: "Sophie Martin",
-    role: "Syndic de copropriété",
-    text: "Garnier Nettoyage nous accompagne depuis 3 ans. L'équipe est fiable, réactive et les résidents sont satisfaits. Un vrai partenaire de confiance.",
+    name: "Mme. Dubois",
+    role: "Présidente du Conseil Syndical, Résidence Les Jardins d'Occitanie",
+    text: "Garnier Nettoyage assure une propreté irréprochable de nos parties communes. La réactivité et le professionnalisme de leurs équipes sont un atout majeur pour notre copropriété.",
     rating: 5,
   },
   {
-    name: "Dr. Laurent Dupont",
-    role: "Cabinet médical",
-    text: "L'hygiène est cruciale pour notre cabinet. Garnier Nettoyage respecte scrupuleusement nos protocoles et nos patients remarquent la propreté.",
+    name: "M. Bernard",
+    role: "Gérant d'Immeubles, Agence Immobilière Montpelliéraine",
+    text: "Pour nos bureaux et locaux professionnels, Garnier Nettoyage garantit un environnement de travail sain et accueillant. Leur discrétion et l'efficacité de leurs interventions sont très appréciées.",
     rating: 5,
   },
   {
-    name: "Thomas Leclerc",
-    role: "Directeur d'agence immobilière",
-    text: "Avant les visites, Garnier Nettoyage rend nos bureaux impeccables. Cela fait une vraie différence pour les clients potentiels.",
+    name: "Dr. Valérie Lefevre",
+    role: "Directrice de Cabinet Médical, Montpellier Centre",
+    text: "L'hygiène est primordiale dans notre cabinet médical. Garnier Nettoyage respecte scrupuleusement nos protocoles, assurant un environnement stérile et rassurant pour nos patients.",
     rating: 5,
   },
 ];
@@ -169,10 +169,10 @@ export default function Home() {
               <MapPin className="h-4 w-4" /> Montpellier & alentours
             </div>
             <h1 className="font-display text-5xl font-black leading-[0.96] tracking-[-0.055em] text-[#062d3b] sm:text-6xl lg:text-7xl">
-              Des bâtiments propres qui donnent envie d'entrer.
+              Votre partenaire propreté pour des espaces professionnels impeccables.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-700 sm:text-xl">
-              Garnier Nettoyage accompagne les copropriétés, bureaux et bâtiments professionnels à Montpellier avec un service net, régulier et rassurant. Le premier regard sur votre bâtiment compte : nous le rendons impeccable.
+              Garnier Nettoyage offre des solutions d'entretien sur mesure pour les copropriétés, bureaux et cabinets médicaux à Montpellier. Nous nous engageons à créer des environnements sains, valorisants et accueillants, essentiels pour le bien-être de vos occupants et l'image de votre établissement.
             </p>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
