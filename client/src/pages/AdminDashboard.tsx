@@ -266,7 +266,29 @@ export default function AdminDashboard() {
                     </TableCell>
                     <TableCell className="px-6 py-4">
                       <div className="max-w-xs text-sm text-slate-700">
-                        <p className="line-clamp-2">{request.message}</p>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <button className="text-left hover:text-cyan-700 transition-colors">
+                              <p className="line-clamp-3 cursor-pointer">{request.message}</p>
+                              {request.message && request.message.length > 60 && (
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-600">Voir tout</span>
+                              )}
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-2xl">
+                            <DialogHeader>
+                              <DialogTitle className="flex items-center gap-2">
+                                <MessageSquare className="h-5 w-5 text-cyan-600" />
+                                Description de la demande - {request.name}
+                              </DialogTitle>
+                            </DialogHeader>
+                            <div className="mt-4 max-h-[60vh] overflow-y-auto rounded-lg bg-slate-50 p-6 border border-slate-100">
+                              <p className="whitespace-pre-wrap text-base leading-relaxed text-slate-800">
+                                {request.message || "Aucune description fournie."}
+                              </p>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                     </TableCell>
                     <TableCell className="px-6 py-4">
