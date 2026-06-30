@@ -6,9 +6,40 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import { createPost } from "./db";
+
 async function startServer() {
   const app = express();
   const server = createServer(app);
+
+  app.use(express.json());
+
+  // Webhook for Baby Love Growth
+  app.post("/api/blog-webhook", async (req, res) => {
+    try {
+      const { title, slug, content, excerpt, coverImage } = req.body;
+      
+      if (!title || !slug || !content) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+
+      await createPost({
+        title,
+        slug,
+        content,
+        excerpt,
+        coverImage,
+        status: "published",
+        publishedAt: new Date(),
+      });
+
+      console.log(`[Webhook] New post published: ${title}`);
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.error("[Webhook] Error processing post:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
   // Serve static files from dist/public in production
   const staticPath =

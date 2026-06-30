@@ -1,5 +1,5 @@
 import { publicProcedure, router, protectedProcedure } from "./_core/trpc";
-import { createQuoteRequest, getQuoteRequests, updateQuoteRequestStatus, deleteQuoteRequest, sendMessage, getMessagesForQuote, getUserByEmail, getUserById } from "./db";
+import { createQuoteRequest, getQuoteRequests, updateQuoteRequestStatus, deleteQuoteRequest, sendMessage, getMessagesForQuote, getUserByEmail, getUserById, createPost, getPublishedPosts, getPostBySlug } from "./db";
 import { sendQuoteNotificationEmail, sendClientMessageEmail } from "./email";
 import { storagePut } from "./storage";
 import { z } from "zod";
@@ -219,6 +219,17 @@ export const appRouter = router({
           throw new Error("Unauthorized: admin access required");
         }
         return getMessagesForQuote(input.quoteId);
+      }),
+  }),
+
+  blog: router({
+    getAll: publicProcedure.query(async () => {
+      return getPublishedPosts();
+    }),
+    getBySlug: publicProcedure
+      .input(z.object({ slug: z.string() }))
+      .query(async ({ input }) => {
+        return getPostBySlug(input.slug);
       }),
   }),
 });

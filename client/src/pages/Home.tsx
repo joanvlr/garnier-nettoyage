@@ -289,6 +289,7 @@ export default function Home() {
             <a className="nav-link" href="#services">Services</a>
             <a className="nav-link" href="#methode">Méthode</a>
             <a className="nav-link" href="#avis">Avis</a>
+            <a className="nav-link" href="/blog">Blog</a>
             <a className="nav-link" href="#contact">Contact</a>
           </div>
 
@@ -316,6 +317,7 @@ export default function Home() {
                         { href: "#services", label: "Services" },
                         { href: "#methode", label: "Méthode" },
                         { href: "#avis", label: "Avis" },
+                        { href: "/blog", label: "Blog" },
                         { href: "#contact", label: "Contact & Devis" },
                       ].map((link) => (
                         <SheetClose asChild key={link.href}>

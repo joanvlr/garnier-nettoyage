@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, quoteRequests, InsertQuoteRequest, messages, InsertMessage, pushTokens, InsertPushToken } from "../drizzle/schema";
+import { InsertUser, users, quoteRequests, InsertQuoteRequest, messages, InsertMessage, pushTokens, InsertPushToken, posts, InsertPost } from "../drizzle/schema";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -190,4 +190,41 @@ export async function getAllAdminPushTokens() {
   }
 
   return db.select().from(pushTokens);
+}
+
+/**
+ * Create a new blog post
+ */
+export async function createPost(data: InsertPost) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  return db.insert(posts).values(data);
+}
+
+/**
+ * Get all published posts
+ */
+export async function getPublishedPosts() {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  return db.select().from(posts).where(eq(posts.status, "published")).orderBy(posts.publishedAt);
+}
+
+/**
+ * Get post by slug
+ */
+export async function getPostBySlug(slug: string) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  const result = await db.select().from(posts).where(eq(posts.slug, slug)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
 }
