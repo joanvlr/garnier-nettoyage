@@ -14,7 +14,15 @@ import {
   Star,
   WandSparkles,
   ChevronDown,
+  Menu,
 } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { motion } from "framer-motion";
 
@@ -191,7 +199,7 @@ export default function Home() {
                   10 0 19 -4 19 -10z m-642 -17 l33 -5 -3 -86 -3 -86 -40 -12 c-23 -6 -60 -15
                   -82 -19 -38 -6 -41 -5 -36 14 3 11 17 24 32 30 l26 9 -27 1 c-26 1 -27 3 -27
                   61 l1 60 31 1 32 1 -37 10 c-23 6 -38 16 -38 25 0 16 35 15 138 -4z m502 -3
-                  c-8 -5 -26 -10 -40 -10 -20 0 -22 2 -10 10 8 5 26 10 40 10 20 0 22 -2 10 -10z
+                  c-8 -5 -26 -10 -40 -10 -20 0 -22 2 -10 10 8 5 26 10 40 10 20 0 22 -2 -10 -10z
                   m-315 -20 c-11 -5 -27 -9 -35 -9 -9 0 -8 4 5 9 11 5 27 9 35 9 9 0 8 -4 -5 -9z
                   m175 -10 c-36 -12 -62 -12 -55 0 3 6 23 10 43 9 33 -1 34 -2 12 -9z m-165 -30
                   c-16 -4 -41 -8 -55 -8 l-25 0 25 8 c14 4 39 8 55 8 l30 0 -30 -8z m420 -29 c9
@@ -240,7 +248,7 @@ export default function Home() {
                   1344 960 109 12 323 13 420 0z m1634 -3407 c12 -14 17 -43 20 -108 l4 -89 398
                   -3 c392 -2 398 -3 421 -24 16 -15 23 -33 23 -60 l0 -38 -1009 0 c-911 0 -1009
                   2 -1015 16 -12 30 -6 55 19 79 l24 25 396 0 395 0 0 88 c0 133 -1 132 169 132
-                  121 0 140 -2 155 -18z m863 -481 c12 -45 41 -117 63 -161 22 -44 40 -82 40
+                  121 0 140 -2 155 -18z m 863 -481 c12 -45 41 -117 63 -161 22 -44 40 -82 40
                   -85 0 -3 -33 -5 -72 -3 l-73 3 -58 113 c-32 63 -60 112 -62 110 -3 -3 30 -177
                   41 -210 5 -17 -8 -18 -170 -18 l-174 0 -42 108 c-23 59 -45 109 -47 112 -5 5
                   0 -66 14 -172 l6 -48 -225 0 -225 0 -13 105 c-7 58 -16 105 -20 105 -4 0 -11
@@ -276,6 +284,7 @@ export default function Home() {
             </span>
           </a>
 
+          {/* Desktop Menu */}
           <div className="hidden items-center gap-8 text-sm font-bold text-slate-700 lg:flex">
             <a className="nav-link" href="#services">Services</a>
             <a className="nav-link" href="#methode">Méthode</a>
@@ -283,9 +292,52 @@ export default function Home() {
             <a className="nav-link" href="#contact">Contact</a>
           </div>
 
-          <a href="#contact" className="clean-button hidden sm:inline-flex">
-            Demander un devis <ArrowRight className="h-4 w-4" />
-          </a>
+          <div className="flex items-center gap-4">
+            <a href="#contact" className="clean-button hidden sm:inline-flex">
+              Demander un devis <ArrowRight className="h-4 w-4" />
+            </a>
+
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="text-[#062d3b]">
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] border-l-cyan-100 bg-white p-0">
+                  <div className="flex flex-col h-full">
+                    <div className="flex items-center justify-between p-6 border-b border-slate-100">
+                      <span className="text-lg font-bold text-[#062d3b]">Menu</span>
+                    </div>
+                    <div className="flex flex-col gap-2 p-6">
+                      {[
+                        { href: "#accueil", label: "Accueil" },
+                        { href: "#services", label: "Services" },
+                        { href: "#methode", label: "Méthode" },
+                        { href: "#avis", label: "Avis" },
+                        { href: "#contact", label: "Contact & Devis" },
+                      ].map((link) => (
+                        <SheetClose asChild key={link.href}>
+                          <a
+                            href={link.href}
+                            className="flex items-center py-4 text-lg font-medium text-slate-700 transition-colors hover:text-[#062d3b] hover:bg-slate-50 rounded-lg px-4"
+                          >
+                            {link.label}
+                          </a>
+                        </SheetClose>
+                      ))}
+                    </div>
+                    <div className="mt-auto p-6 border-t border-slate-100 bg-slate-50">
+                      <p className="text-xs text-slate-500 text-center">
+                        Garnier Nettoyage © 2026<br/>Montpellier & Alentours
+                      </p>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </div>
         </nav>
       </header>
 
