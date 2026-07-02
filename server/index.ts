@@ -17,6 +17,16 @@ async function startServer() {
   // Webhook for Baby Love Growth
   app.post("/api/blog-webhook", async (req, res) => {
     try {
+      // Security Check: Bearer Token
+      const authHeader = req.headers.authorization;
+      const token = authHeader && authHeader.split(" ")[1];
+      const secretToken = process.env.BLOG_WEBHOOK_SECRET || "gn_secure_blog_2026_xyz";
+
+      if (!token || token !== secretToken) {
+        console.warn(`[Webhook] Unauthorized attempt with token: ${token}`);
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
       const { title, slug, content, excerpt, coverImage } = req.body;
       
       if (!title || !slug || !content) {
