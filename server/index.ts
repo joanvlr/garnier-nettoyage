@@ -14,6 +14,14 @@ async function startServer() {
 
   app.use(express.json());
 
+  // Logging middleware for debugging
+  app.use((req, res, next) => {
+    if (req.path.startsWith("/api")) {
+      console.log(`[API Request] ${req.method} ${req.path}`);
+    }
+    next();
+  });
+
   // Webhook for Baby Love Growth
   app.post("/api/blog-webhook", async (req, res) => {
     try {
@@ -26,6 +34,8 @@ async function startServer() {
         console.warn(`[Webhook] Unauthorized attempt with token: ${token}`);
         return res.status(401).json({ error: "Unauthorized" });
       }
+
+      console.log("[Webhook] Received payload:", JSON.stringify(req.body).substring(0, 100) + "...");
 
       const { title, slug, content, excerpt, coverImage } = req.body;
       
