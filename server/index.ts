@@ -22,6 +22,11 @@ async function startServer() {
     next();
   });
 
+  // Test route to verify API is reachable
+  app.get("/api/test", (req, res) => {
+    res.status(200).json({ status: "ok", message: "Garnier Nettoyage API is active" });
+  });
+
   // Webhook for Baby Love Growth
   app.post("/api/blog-webhook", async (req, res) => {
     try {
