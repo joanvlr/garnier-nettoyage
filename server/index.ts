@@ -37,18 +37,23 @@ async function startServer() {
 
       console.log("[Webhook] Received payload:", JSON.stringify(req.body).substring(0, 100) + "...");
 
-      const { title, slug, content, excerpt, coverImage } = req.body;
+      // Match Baby Love Growth payload fields
+      const { title, slug, content_html, metaDescription, heroImageUrl } = req.body;
       
-      if (!title || !slug || !content) {
-        return res.status(400).json({ error: "Missing required fields" });
+      // Allow content to be in 'content' or 'content_html'
+      const finalContent = content_html || req.body.content;
+      
+      if (!title || !slug || !finalContent) {
+        console.error("[Webhook] Validation failed. Missing title, slug or content.");
+        return res.status(400).json({ error: "Missing required fields: title, slug, and content_html" });
       }
 
       await createPost({
         title,
         slug,
-        content,
-        excerpt,
-        coverImage,
+        content: finalContent,
+        excerpt: metaDescription || req.body.excerpt,
+        coverImage: heroImageUrl || req.body.coverImage,
         status: "published",
         publishedAt: new Date(),
       });
