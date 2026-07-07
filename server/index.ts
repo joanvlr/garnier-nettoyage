@@ -27,6 +27,21 @@ async function startServer() {
     res.status(200).json({ status: "ok", message: "Garnier Nettoyage API is active" });
   });
 
+  // Debug route for Database
+  app.get("/api/debug-db", async (req, res) => {
+    try {
+      const { getDb } = await import("./db");
+      const db = await getDb();
+      if (!db) return res.status(500).json({ error: "DB not initialized" });
+      
+      const { sql } = await import("drizzle-orm");
+      await db.execute(sql`SELECT 1`);
+      res.status(200).json({ status: "ok", database: "connected" });
+    } catch (error) {
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
   // Webhook for Baby Love Growth
   app.post("/api/blog-webhook", async (req, res) => {
     try {
