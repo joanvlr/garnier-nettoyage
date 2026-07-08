@@ -260,9 +260,9 @@ export const appRouter = router({
               await createPost({
                 title: fullData.title,
                 slug: fullData.slug,
-                content: fullData.content_html,
-                excerpt: fullData.meta_description,
-                coverImage: fullData.hero_image_url,
+                content: fullData.content_html || fullData.content,
+                excerpt: fullData.meta_description || fullData.metaDescription,
+                coverImage: fullData.hero_image_url || fullData.heroImageUrl,
                 status: "published",
                 publishedAt: new Date(fullData.createdAt),
               });
