@@ -56,6 +56,47 @@ async function startServer() {
   
   // Storage proxy for file downloads
   registerStorageProxy(app);
+
+  // Test route to verify API is reachable
+  app.get("/api/test", (req, res) => {
+    res.status(200).json({ status: "ok", message: "Garnier Nettoyage API is active" });
+  });
+
+  // Webhook for Baby Love Growth (Legacy support)
+  app.post("/api/blog-webhook", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      const token = authHeader && authHeader.split(" ")[1];
+      const secretToken = process.env.BLOG_WEBHOOK_SECRET || "gn_secure_blog_2026_xyz";
+
+      if (!token || token !== secretToken) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      const { title, slug, content_html, metaDescription, heroImageUrl } = req.body;
+      const finalContent = content_html || req.body.content;
+      
+      if (!title || !slug || !finalContent) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+
+      const { createPost } = await import("../db");
+      await createPost({
+        title,
+        slug,
+        content: finalContent,
+        excerpt: metaDescription || req.body.excerpt,
+        coverImage: heroImageUrl || req.body.coverImage,
+        status: "published",
+        publishedAt: new Date(),
+      });
+
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.error("[Webhook] Error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
   
   // tRPC API
   app.use(

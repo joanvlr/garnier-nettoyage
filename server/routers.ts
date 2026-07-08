@@ -231,6 +231,51 @@ export const appRouter = router({
       .query(async ({ input }) => {
         return getPostBySlug(input.slug);
       }),
+    sync: protectedProcedure.mutation(async ({ ctx }) => {
+      if (ctx.user?.role !== "admin") {
+        throw new Error("Unauthorized: admin access required");
+      }
+      
+      try {
+        const apiKey = "7d676e20-a8da-424c-8e8c-281cc6973484";
+        const baseUrl = "https://api.babylovegrowth.ai/api/integrations/v1";
+        
+        const response = await fetch(`${baseUrl}/articles`, {
+          headers: { "X-API-Key": apiKey, "Content-Type": "application/json" }
+        });
+        
+        if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+        const articles = await response.json();
+        
+        let syncCount = 0;
+        for (const article of articles) {
+          const fullRes = await fetch(`${baseUrl}/articles/${article.id}`, {
+            headers: { "X-API-Key": apiKey, "Content-Type": "application/json" }
+          });
+          
+          if (fullRes.ok) {
+            const fullData = await fullRes.json();
+            const existing = await getPostBySlug(fullData.slug);
+            if (!existing) {
+              await createPost({
+                title: fullData.title,
+                slug: fullData.slug,
+                content: fullData.content_html,
+                excerpt: fullData.meta_description,
+                coverImage: fullData.hero_image_url,
+                status: "published",
+                publishedAt: new Date(fullData.createdAt),
+              });
+              syncCount++;
+            }
+          }
+        }
+        return { success: true, message: `${syncCount} nouveaux articles synchronisés.` };
+      } catch (error) {
+        console.error("[Sync] Error:", error);
+        throw new Error("Échec de la synchronisation avec Baby Love Growth");
+      }
+    }),
   }),
 });
 

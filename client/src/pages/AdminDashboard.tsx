@@ -22,7 +22,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Download, FileText, Mail, MapPin, Phone, Archive, MessageSquare, Search, X, LogOut } from "lucide-react";
+import { Download, FileText, Mail, MapPin, Phone, Archive, MessageSquare, Search, X, LogOut, RefreshCw } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { useState, useMemo } from "react";
 import { toast } from "sonner";
@@ -38,6 +38,14 @@ export default function AdminDashboard() {
   const deleteMutation = trpc.quotes.delete.useMutation();
   const sendMessageMutation = trpc.messages.send.useMutation();
   const logoutMutation = trpc.auth.logout.useMutation();
+  const syncBlogMutation = trpc.blog.sync.useMutation({
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -166,10 +174,21 @@ export default function AdminDashboard() {
             <h1 className="text-4xl font-bold text-slate-900">Demandes de devis</h1>
             <p className="mt-2 text-slate-600">Gérez les demandes de nettoyage reçues</p>
           </div>
-          <Button variant="outline" onClick={handleLogout} className="gap-2">
-            <LogOut className="h-4 w-4" />
-            Déconnexion
-          </Button>
+          <div className="flex gap-4">
+            <Button 
+              onClick={() => syncBlogMutation.mutate()} 
+              disabled={syncBlogMutation.isPending}
+              variant="outline"
+              className="flex items-center gap-2 border-[#062d3b] text-[#062d3b] hover:bg-[#062d3b] hover:text-white"
+            >
+              <RefreshCw className={`h-4 w-4 ${syncBlogMutation.isPending ? 'animate-spin' : ''}`} />
+              {syncBlogMutation.isPending ? "Synchronisation..." : "Synchroniser le Blog"}
+            </Button>
+            <Button variant="outline" onClick={handleLogout} className="gap-2">
+              <LogOut className="h-4 w-4" />
+              Déconnexion
+            </Button>
+          </div>
         </div>
 
         {/* Barre de recherche et filtres */}
